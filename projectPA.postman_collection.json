@@ -1,0 +1,1016 @@
+{
+	"info": {
+		"_postman_id": "6c704751-4835-4f10-8e9b-a745e7dba33a",
+		"name": "projectPA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30914128",
+		"_collection_link": "https://dark-sunset-607461.postman.co/workspace/onlineShop~bb33e6ba-ec88-47bf-ae3d-9a484b58eb2f/collection/30914128-6c704751-4835-4f10-8e9b-a745e7dba33a?action=share&source=collection_link&creator=30914128"
+	},
+	"item": [
+		{
+			"name": "CUSTOMER",
+			"item": [
+				{
+					"name": "get customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customer by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/customers/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "total price for customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/customers/1/totalPrice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"customers",
+								"1",
+								"totalPrice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": \"Atinska 5\",\r\n    \"city\": \"Kragujevac\",\r\n    \"contactPerson\": \"Kristina Mojsic\",\r\n    \"country\": \"Srbija\",\r\n    \"customerID\": 8,\r\n    \"customerName\": \"Customer5\",\r\n    \"postCode\": \"34000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/customers/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"customers",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update customer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": \"Atinska 4\",\r\n    \"city\": \"Kragujevac\",\r\n    \"contactPerson\": \"Kristina Mojsic\",\r\n    \"country\": \"Srbija\",\r\n    \"customerID\": 11,\r\n    \"customerName\": \"Customer5\",\r\n    \"postCode\": \"34000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete customer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/customers/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"customers",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get 4 best customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/customers/maxOrders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"customers",
+								"maxOrders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SHIPPER",
+			"item": [
+				{
+					"name": "get shippers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/shippers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"shippers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get shipper by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/shippers/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"shippers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get products for  given shipper id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/shippers/3/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"shippers",
+								"3",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get total price for shipper",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/shippers/1/totalPrice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"shippers",
+								"1",
+								"totalPrice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add shipper",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\": \"0622222222\",\r\n    \"shipperId\": 1,\r\n    \"shipperName\": \"postexpress\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/shippers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"shippers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update shipper",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\": \"060\",\r\n    \"shipperId\": 5,\r\n    \"shipperName\": \"postexpress\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/shippers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"shippers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/shippers/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"shippers",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EMPLOYEE",
+			"item": [
+				{
+					"name": "get employees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/employees",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get employee by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/employees/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"employees",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "employee max orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/employees/maxOrders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"employees",
+								"maxOrders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"birthDate\": \"1980-01-02\",\r\n    \"employeeId\": 1,\r\n    \"firstName\": \"Ana\",\r\n    \"lastName\": \"Marinkovic\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/employees",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateEmployee",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"birthDate\": \"1980-01-02\",\r\n    \"employeeId\": 5,\r\n    \"firstName\": \"Anaa\",\r\n    \"lastName\": \"Marinkovic\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/employees",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/employees/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"employees",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PRODUCT",
+			"item": [
+				{
+					"name": "get products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get product by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/products/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get 2 products with max number of orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/products/mostOrders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"products",
+								"mostOrders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pricePerUnit\": 12020.0,\r\n    \"productCategory\": \"namestaj\",\r\n    \"productId\": 1,\r\n    \"productName\": \"fotelja\",\r\n    \"supplier\": {\r\n        \"address\": \"8. marta11\",\r\n        \"city\": \"Beograd\",\r\n        \"contactPerson\": \"Milos jovic\",\r\n        \"country\": \"Srbija\",\r\n        \"phone\": \"0656472862\",\r\n        \"postCode\": \"11000\",\r\n        \"supplierId\": 1,\r\n        \"supplierName\": \"Supplier1\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pricePerUnit\": 12020.0,\r\n    \"productCategory\": \"namestaj\",\r\n    \"productId\": 8,\r\n    \"productName\": \"fotelja2\",\r\n    \"supplier\": {\r\n        \"address\": \"8. marta11\",\r\n        \"city\": \"Beograd\",\r\n        \"contactPerson\": \"Milos jovic\",\r\n        \"country\": \"Srbija\",\r\n        \"phone\": \"0656472862\",\r\n        \"postCode\": \"11000\",\r\n        \"supplierId\": 1,\r\n        \"supplierName\": \"Supplier1\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/products/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"products",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SUPPLIER",
+			"item": [
+				{
+					"name": "get suppliers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/suppliers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"suppliers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get supplier by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/suppliers/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"suppliers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "suppliers products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/suppliers/1/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"suppliers",
+								"1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "suppliers total orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/suppliers/1/totalPrice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"suppliers",
+								"1",
+								"totalPrice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get supplier with maximum price orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/suppliers/maxOrders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"suppliers",
+								"maxOrders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add supplier",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": \"8. marta11\",\r\n    \"city\": \"Beograd\",\r\n    \"contactPerson\": \"Marko Markovic\",\r\n    \"country\": \"Srbija\",\r\n    \"phone\": \"0656472862\",\r\n    \"postCode\": \"11000\",\r\n    \"supplierId\": 1,\r\n    \"supplierName\": \"Supplier 3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/suppliers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"suppliers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete supplier by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/suppliers/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"suppliers",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update supplier",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": \"8. marta11\",\r\n    \"city\": \"Beograd\",\r\n    \"contactPerson\": \"MARKO MARKOVIC\",\r\n    \"country\": \"Srbija\",\r\n    \"phone\": \"0656472862\",\r\n    \"postCode\": \"11000\",\r\n    \"supplierId\": 6,\r\n    \"supplierName\": \"Supplier 3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/suppliers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"suppliers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ORDER",
+			"item": [
+				{
+					"name": "get orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get order by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/orders/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get total price orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/orders/totalPrice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"orders",
+								"totalPrice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"order\": {\r\n        \"customer\": {\r\n            \"address\": \"Atinska 55\",\r\n            \"city\": \"Kragujevac\",\r\n            \"contactPerson\": \"Milos Milosevic\",\r\n            \"country\": \"Srbija\",\r\n            \"customerID\": 1,\r\n            \"customerName\": \"Customer1\",\r\n            \"postCode\": \"34000\"\r\n        },\r\n        \"employee\": {\r\n            \"birthDate\": \"1980-01-02\",\r\n            \"employeeId\": 1,\r\n            \"firstName\": \"Ilija\",\r\n            \"lastName\": \"Rakic\"\r\n        },\r\n        \"orderDate\": \"2023-12-10\",\r\n        \"orderId\": 1,\r\n        \"shipper\": {\r\n            \"phone\": \"0622222222\",\r\n            \"shipperId\": 1,\r\n            \"shipperName\": \"AKS\"\r\n        }\r\n    },\r\n    \"orderDetailsId\": 1,\r\n    \"product\": {\r\n        \"pricePerUnit\": 12020.0,\r\n        \"productCategory\": \"namestaj\",\r\n        \"productId\": 1,\r\n        \"productName\": \"krevet\",\r\n        \"supplier\": {\r\n            \"address\": \"8. marta11\",\r\n            \"city\": \"Beograd\",\r\n            \"contactPerson\": \"Milos jovic\",\r\n            \"country\": \"Srbija\",\r\n            \"phone\": \"0656472862\",\r\n            \"postCode\": \"11000\",\r\n            \"supplierId\": 1,\r\n            \"supplierName\": \"Supplier1\"\r\n        }\r\n    },\r\n    \"quantity\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete order and order details",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/projectPA/rest/orders/16",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projectPA",
+								"rest",
+								"orders",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update order",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
