@@ -91,6 +91,7 @@ public class OrderDetailsDao {
             ResourcesManager.closeResources(null, ps);
         }
    }
+  
    public void deleteForOrder(Connection con, int idOrder) throws SQLException
    {
        PreparedStatement ps = null;
@@ -102,6 +103,22 @@ public class OrderDetailsDao {
             ResourcesManager.closeResources(null, ps);
         }
    }
+   public void deleteForProduct(Connection con, int idProduct) throws SQLException
+   {
+       PreparedStatement ps = null;
+        try {
+            for(int orderId : OrderDao.getInstance().findOrdersWithProductId(con, idProduct))
+            {
+                OrderDao.getInstance().delete(con, orderId);
+            }
+            ps = con.prepareStatement("DELETE FROM orderDetails WHERE ProductId=?");
+            ps.setInt(1, idProduct);
+            ps.executeUpdate();
+        } finally {
+            ResourcesManager.closeResources(null, ps);
+        }
+   }
+   
    public OrderDetails find(Connection con, int orderDetailsId) throws SQLException
    {
        PreparedStatement ps = null;

@@ -64,10 +64,12 @@ public class ProductService {
         try
         {
             con = ResourcesManager.getConnection();
-            ProductDao.getInstance().delete(con, productId);
+            con.setAutoCommit(false);
+            ProductDao.getInstance().delete(con, productId); 
         }
         catch(Exception e)
         {
+            ResourcesManager.rollbackTransactions(con);
             throw new Exception("Failed to delete product with id " + productId,e);
             
         }

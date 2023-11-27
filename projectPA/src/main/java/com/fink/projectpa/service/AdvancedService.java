@@ -11,6 +11,7 @@ import com.fink.projectpa.dao.OrderDetailsDao;
 import com.fink.projectpa.dao.ProductDao;
 import com.fink.projectpa.dao.ResourcesManager;
 import com.fink.projectpa.data.Customer;
+import com.fink.projectpa.data.Employee;
 import com.fink.projectpa.data.Order;
 import com.fink.projectpa.data.OrderDetails;
 import com.fink.projectpa.data.Product;
@@ -18,7 +19,11 @@ import com.fink.projectpa.data.Shipper;
 import com.fink.projectpa.data.Supplier;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -100,8 +105,17 @@ public class AdvancedService {
         try
         {
             con = ResourcesManager.getConnection();
-            return AdvancedDao.getInstance().shippersProducts(con,shipperId);
-            
+            //return AdvancedDao.getInstance().shippersProducts(con,shipperId);
+            List <Product> result = new ArrayList<>();
+            List <OrderDetails> orders = OrderDetailsDao.getInstance().findAll(con);
+            for(OrderDetails order : orders)
+            {
+                if(order.getOrder().getShipper().getShipperId()==shipperId)
+                {
+                    result.add(order.getProduct());
+                }
+            }
+            return result;
         }
         catch(Exception e){
             throw new Exception("Shipper doesn't have any product",e);
@@ -226,6 +240,8 @@ public class AdvancedService {
         {
             con = ResourcesManager.getConnection();
             return AdvancedDao.getInstance().MaxOrderPriceEmployee(con);
+            
+            
         }
         catch(Exception e){
             throw new Exception("There are no orders in database ",e);
@@ -243,6 +259,8 @@ public class AdvancedService {
         {
             con = ResourcesManager.getConnection();
             return AdvancedDao.getInstance().MostOrdersProducts(con);
+            
+            
         }
         catch(Exception e){
             throw new Exception("There are no orders in database ",e);
@@ -259,11 +277,35 @@ public class AdvancedService {
         try
         {
             con = ResourcesManager.getConnection();
-            return AdvancedDao.getInstance().MaxOrderPriceCustomers(con);
+           //return AdvancedDao.getInstance().MaxOrderPriceCustomers(con);
+           Map<Double,Customer> mapa = new HashMap<>();
+           String result = "";
+           List<OrderDetails> orders = OrderDetailsDao.getInstance().findAll(con);
+           for(OrderDetails order : orders)
+           {
+               mapa.put(totalPriceForCustomer(order.getOrder().getCustomer().getCustomerID()), order.getOrder().getCustomer());
+               
+           }
+           List<Map.Entry<Double, Customer>> lista = new ArrayList<>(mapa.entrySet());
+           Collections.sort(lista, Map.Entry.comparingByKey());
+           Map<Double, Customer> sortiranaMapa = new HashMap<>();
+        
+        
+           for (Map.Entry<Double, Customer> entry : lista) {
+                sortiranaMapa.put(entry.getKey(), entry.getValue());
+            }
+           int counter = 0;
+           for (Map.Entry<Double, Customer> entry : sortiranaMapa.entrySet()) {
+            
+           result += entry.getKey() + ": " + entry.getValue() + "\n";
+           if(counter++==4) break;
+                
+        }
+        return result;  
         }
         catch(Exception e){
             throw new Exception("There are no orders in database ",e);
-    }
+        }
         finally
         {
             ResourcesManager.closeConnection(con);
@@ -277,6 +319,7 @@ public class AdvancedService {
         {
             con = ResourcesManager.getConnection();
             return AdvancedDao.getInstance().MaxOrderPriceSupplier(con);
+            
         }
         catch(Exception e){
             throw new Exception("There are no orders in database ",e);

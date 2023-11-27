@@ -112,7 +112,26 @@ public class OrderDao {
             ResourcesManager.closeResources(null, ps);
         }
    }
-   
+   public List<Integer> findOrdersWithProductId(Connection con, int productId) throws SQLException
+   {
+       PreparedStatement ps = null;
+       ResultSet rs = null;
+       List<Integer> orders = new ArrayList<>();
+       try
+       {
+           ps = con.prepareStatement("SELECT orderId FROM ordersDetails WHERE ProductId=?");
+           ps.setInt(1,productId);
+           rs = ps.executeQuery();
+           while(rs.next())
+           {
+               orders.add(rs.getInt(1));
+           }
+       }
+       finally {
+            ResourcesManager.closeResources(rs, ps);
+        }
+       return orders;
+   }
    public Order find(Connection con, int orderId) throws SQLException
    {
        PreparedStatement ps = null;

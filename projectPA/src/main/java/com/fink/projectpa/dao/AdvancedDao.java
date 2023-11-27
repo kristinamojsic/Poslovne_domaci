@@ -193,7 +193,11 @@ public class AdvancedDao {
        {
            ps = con.prepareStatement("SELECT SUM(PricePerUnit * Quantity) as totalPrice, e.FirstName, e.LastName FROM orders o INNER JOIN orderdetails od ON o.OrderId = od.OrderId INNER JOIN employees e ON o.EmployeeId = e.EmployeeId INNER JOIN products p ON od.ProductId = p.ProductId GROUP BY o.EmployeeId order by totalPrice desc LIMIT 1");
            rs = ps.executeQuery();
-           result = rs.getString("totalPrice") + rs.getString("FirstName") + rs.getString("LastName");
+           if(rs.next())
+           {
+               result = rs.getString("totalPrice") + rs.getString("FirstName") + rs.getString("LastName");
+           }
+           
        }
        finally
        {
