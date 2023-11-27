@@ -29,7 +29,7 @@ public class Warehouse {
         {
             /* *** CUSTOMERS *** */
             System.out.println(CustomerService.getInstance().findCustomer(1));
-            System.out.println(AdvancedService.getInstance().CustomersAndOrders());
+            
             //System.out.println(CustomerService.getInstance().findCustomer(5));
             //System.out.println(CustomerService.getInstance().findCustomers());
             //Customer customer = new Customer(1,"Novi","novo","novo","novo","novo","novo");
@@ -89,11 +89,19 @@ public class Warehouse {
             
             
             /* *** ORDERS *** */
-            Order order = OrderService.getInstance().findOrder(1).getOrder();
-            System.out.println(ShipperService.getInstance().findShipper(order.getShipper().getShipperId()));
+            //Order order = OrderService.getInstance().findOrder(1).getOrder();
+            //System.out.println(ShipperService.getInstance().findShipper(order.getShipper().getShipperId()));
             //System.out.println(ShipperDao.getInstance().find(con, order.getShipper().getShipperId());)
             
+            /* ** ADVANCED *** */
             
+           //System.out.println(AdvancedService.getInstance().CustomersAndOrders());
+           //System.out.print(AdvancedService.getInstance().suppliersProducts(1).get(0).getSupplier().getSupplierId());
+           //System.out.println(AdvancedService.getInstance().suppliersProducts(1)); 
+           //System.out.println(AdvancedService.getInstance().totalPriceOrders());
+           //System.out.println(AdvancedService.getInstance().totalPriceForCustomer(1));
+           //System.out.println(AdvancedService.getInstance().totalPriceForShipper(1));
+           System.out.println(AdvancedService.getInstance().totalPriceForSupplier(1));
         }
         catch(Exception e)
         {
