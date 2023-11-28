@@ -64,10 +64,13 @@ public class ShipperService {
         try
         {
             con = ResourcesManager.getConnection();
+            con.setAutoCommit(false);
             ShipperDao.getInstance().delete(con, shipperId);
+            con.commit();
         }
         catch(Exception e)
         {
+            ResourcesManager.rollbackTransactions(con);
             throw new Exception("Failed to delete shipper with id " + shipperId,e);
             
         }

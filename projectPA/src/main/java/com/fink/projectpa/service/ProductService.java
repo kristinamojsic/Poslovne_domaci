@@ -66,6 +66,7 @@ public class ProductService {
             con = ResourcesManager.getConnection();
             con.setAutoCommit(false);
             ProductDao.getInstance().delete(con, productId); 
+            con.commit();
         }
         catch(Exception e)
         {

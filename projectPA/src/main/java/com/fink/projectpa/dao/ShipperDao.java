@@ -58,6 +58,7 @@ private static final ShipperDao instance = new ShipperDao();
    {
        PreparedStatement ps = null;
         try {
+            OrderDao.getInstance().deleteForShipper(con, idShipper);
             ps = con.prepareStatement("DELETE FROM shippers WHERE ShipperId=?");
             
             ps.setInt(1, idShipper);

@@ -106,11 +106,16 @@ public class OrderDetailsDao {
    public void deleteForProduct(Connection con, int idProduct) throws SQLException
    {
        PreparedStatement ps = null;
+       ResultSet rs = null;
         try {
-            for(int orderId : OrderDao.getInstance().findOrdersWithProductId(con, idProduct))
+            ps = con.prepareStatement("SELECT orderId FROM orderDetails WHERE ProductId=?");
+            ps.setInt(1,idProduct);
+            rs = ps.executeQuery();
+            while(rs.next())
             {
-                OrderDao.getInstance().delete(con, orderId);
+               OrderDao.getInstance().delete(con, rs.getInt(1));
             }
+            
             ps = con.prepareStatement("DELETE FROM orderDetails WHERE ProductId=?");
             ps.setInt(1, idProduct);
             ps.executeUpdate();

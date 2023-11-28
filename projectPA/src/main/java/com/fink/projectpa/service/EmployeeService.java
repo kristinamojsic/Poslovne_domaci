@@ -64,10 +64,13 @@ public class EmployeeService {
         try
         {
             con = ResourcesManager.getConnection();
+            con.setAutoCommit(false);
             EmployeeDao.getInstance().delete(con, employeeId);
+            con.commit();
         }
         catch(Exception e)
         {
+            ResourcesManager.rollbackTransactions(con);
             throw new Exception("Failed to delete customer with id " + employeeId,e);
             
         }

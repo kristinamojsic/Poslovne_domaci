@@ -39,7 +39,7 @@ public class OrderService {
             OrderDetailsDao.getInstance().create(con, orderDetails);
             con.commit();
             
-        }catch(SQLException e){
+        }catch(Exception e){
             ResourcesManager.rollbackTransactions(con);
             throw new Exception("Failed to add new order",e);
         }

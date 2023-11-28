@@ -103,23 +103,92 @@ public class OrderDao {
    public void delete(Connection con, int idOrder) throws SQLException
    {
        PreparedStatement ps = null;
+       //PreparedStatement ps2 = null;
         try {
+            
             ps = con.prepareStatement("DELETE FROM orders WHERE OrderId=?");
             ps.setInt(1, idOrder);
             ps.executeUpdate();
             
         } finally {
             ResourcesManager.closeResources(null, ps);
+            
         }
    }
-   public List<Integer> findOrdersWithProductId(Connection con, int productId) throws SQLException
+   public void deleteForEmployee(Connection con, int EmployeeId) throws SQLException
+   {
+       PreparedStatement ps = null;
+       ResultSet rs = null;
+       
+        try {
+            ps = con.prepareStatement("SELECT orderId FROM orders WHERE EmployeeId=?");
+            ps.setInt(1,EmployeeId);
+            rs = ps.executeQuery();
+            while(rs.next())
+            {
+               OrderDetailsDao.getInstance().deleteForOrder(con, rs.getInt(1));
+               
+            }
+            ps = con.prepareStatement("DELETE FROM orders WHERE EmployeeId=?");
+            ps.setInt(1, EmployeeId);
+            ps.executeUpdate();
+            
+        } finally {
+            ResourcesManager.closeResources(null, ps);
+        }
+   }
+      public void deleteForShipper(Connection con, int ShipperId) throws SQLException
+   {
+       PreparedStatement ps = null;
+       ResultSet rs = null;
+       
+        try {
+            ps = con.prepareStatement("SELECT orderId FROM orders WHERE ShipperId=?");
+            ps.setInt(1,ShipperId);
+            rs = ps.executeQuery();
+            while(rs.next())
+            {
+               OrderDetailsDao.getInstance().deleteForOrder(con, rs.getInt(1));
+               
+            }
+            ps = con.prepareStatement("DELETE FROM orders WHERE ShipperId=?");
+            ps.setInt(1, ShipperId);
+            ps.executeUpdate();
+            
+        } finally {
+            ResourcesManager.closeResources(null, ps);
+        }
+   }
+      public void deleteForCustomer(Connection con, int CustomerId) throws SQLException
+   {
+       PreparedStatement ps = null;
+       ResultSet rs = null;
+       
+        try {
+            ps = con.prepareStatement("SELECT orderId FROM orders WHERE CustomerId=?");
+            ps.setInt(1,CustomerId);
+            rs = ps.executeQuery();
+            while(rs.next())
+            {
+               OrderDetailsDao.getInstance().deleteForOrder(con, rs.getInt(1));
+               
+            }
+            ps = con.prepareStatement("DELETE FROM orders WHERE CustomerId=?");
+            ps.setInt(1, CustomerId);
+            ps.executeUpdate();
+            
+        } finally {
+            ResourcesManager.closeResources(null, ps);
+        }
+   }
+   /*public List<Integer> findOrdersWithProductId(Connection con, int productId) throws SQLException
    {
        PreparedStatement ps = null;
        ResultSet rs = null;
        List<Integer> orders = new ArrayList<>();
        try
        {
-           ps = con.prepareStatement("SELECT orderId FROM ordersDetails WHERE ProductId=?");
+           ps = con.prepareStatement("SELECT orderId FROM orderDetails WHERE ProductId=?");
            ps.setInt(1,productId);
            rs = ps.executeQuery();
            while(rs.next())
@@ -131,7 +200,7 @@ public class OrderDao {
             ResourcesManager.closeResources(rs, ps);
         }
        return orders;
-   }
+   }*/
    public Order find(Connection con, int orderId) throws SQLException
    {
        PreparedStatement ps = null;

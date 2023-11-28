@@ -70,8 +70,9 @@ public class CustomerDao {
    {
        PreparedStatement ps = null;
         try {
+            OrderDao.getInstance().deleteForCustomer(con, idCustomer);
             ps = con.prepareStatement("DELETE FROM customers WHERE CustomerId=?");
-            //dobiti informaciju da li je obrisao?
+            
             ps.setInt(1, idCustomer);
             ps.executeUpdate();
         } finally {

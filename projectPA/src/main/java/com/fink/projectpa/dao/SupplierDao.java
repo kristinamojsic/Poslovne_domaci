@@ -70,9 +70,17 @@ public class SupplierDao {
    public void delete(Connection con, int idSupplier) throws SQLException
    {
        PreparedStatement ps = null;
+       ResultSet rs = null;
         try {
+            ps = con.prepareStatement("SELECT productId FROM products WHERE SupplierId=?");
+            ps.setInt(1,idSupplier);
+            rs = ps.executeQuery();
+            while(rs.next())
+            {
+                ProductDao.getInstance().delete(con, rs.getInt(1));
+            }
             ps = con.prepareStatement("DELETE FROM suppliers WHERE SupplierId=?");
-            //dobiti informaciju da li je obrisao?
+            
             ps.setInt(1, idSupplier);
             ps.executeUpdate();
         } finally {

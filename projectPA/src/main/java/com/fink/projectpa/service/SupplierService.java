@@ -64,10 +64,13 @@ public class SupplierService {
         try
         {
             con = ResourcesManager.getConnection();
+            con.setAutoCommit(false);
             SupplierDao.getInstance().delete(con, supplierId);
+            con.commit();
         }
         catch(Exception e)
         {
+            ResourcesManager.rollbackTransactions(con);
             throw new Exception("Failed to delete supplier with id " + supplierId,e);
             
         }

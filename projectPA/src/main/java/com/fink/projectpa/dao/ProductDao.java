@@ -70,6 +70,7 @@ public class ProductDao {
        PreparedStatement ps = null;
         try {
             OrderDetailsDao.getInstance().deleteForProduct(con, idProduct);
+            
             ps = con.prepareStatement("DELETE FROM products WHERE ProductId=?");
             ps.setInt(1, idProduct);
             ps.executeUpdate();
