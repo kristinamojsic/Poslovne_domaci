@@ -68,7 +68,7 @@ public class EmployeeDao {
         try {
             OrderDao.getInstance().deleteForEmployee(con, idEmployee);
             ps = con.prepareStatement("DELETE FROM employees WHERE EmployeeId=?");
-            //dobiti informaciju da li je obrisao?
+            
             ps.setInt(1, idEmployee);
             ps.executeUpdate();
         } finally {

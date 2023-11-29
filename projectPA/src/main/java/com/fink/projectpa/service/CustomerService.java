@@ -7,7 +7,9 @@ package com.fink.projectpa.service;
 import com.fink.projectpa.dao.CustomerDao;
 import com.fink.projectpa.dao.ResourcesManager;
 import com.fink.projectpa.data.Customer;
+import com.fink.projectpa.exception.WarehouseException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -25,7 +27,7 @@ public class CustomerService {
         return instance;
     }
     
-    public void addNewCustomer(Customer customer) throws Exception
+    public void addNewCustomer(Customer customer) throws WarehouseException
     {
         Connection con = null;
         try{
@@ -33,24 +35,24 @@ public class CustomerService {
             
             CustomerDao.getInstance().create(con, customer);
             
-        }catch(Exception e){
-            throw new Exception("Failed to add new customer",e);
+        }catch(SQLException e){
+            throw new WarehouseException("Failed to add new customer",e);
         }
         finally{
             ResourcesManager.closeConnection(con);
         }
     }
     
-    public Customer findCustomer(int customerId) throws Exception
+    public Customer findCustomer(int customerId) throws WarehouseException
     {
         Connection con = null;
         try
         {
            con = ResourcesManager.getConnection();
            return CustomerDao.getInstance().find(con, customerId);
-        }catch(Exception e)
+        }catch(SQLException e)
         {
-            throw new Exception("Failed to find customer with id " + customerId,e);
+            throw new WarehouseException("Failed to find customer with id " + customerId,e);
         }
         finally 
         {
@@ -58,7 +60,7 @@ public class CustomerService {
         }
     }
     
-    public void deleteCustomer(int customerId) throws Exception
+    public void deleteCustomer(int customerId) throws WarehouseException
     {
         Connection con = null;
         try
@@ -68,10 +70,10 @@ public class CustomerService {
             CustomerDao.getInstance().delete(con, customerId);
             con.commit();
         }
-        catch(Exception e)
+        catch(SQLException e)
         {
             ResourcesManager.rollbackTransactions(con);
-            throw new Exception("Failed to delete customer with id " + customerId,e);
+            throw new WarehouseException("Failed to delete customer with id " + customerId,e);
             
         }
         finally
@@ -81,7 +83,7 @@ public class CustomerService {
         }    
     }
     
-    public void updateCustomer(Customer customer) throws Exception
+    public void updateCustomer(Customer customer) throws WarehouseException
     {
         Connection con = null;
         try
@@ -89,9 +91,9 @@ public class CustomerService {
             con = ResourcesManager.getConnection();
             CustomerDao.getInstance().update(con, customer);         
         }
-        catch(Exception e)
+        catch(SQLException e)
         {
-            throw new Exception("Failed to update cutomer " + customer, e);
+            throw new WarehouseException("Failed to update cutomer " + customer, e);
         }
         finally 
         {
@@ -99,15 +101,15 @@ public class CustomerService {
         }
     }
     
-    public List<Customer> findCustomers() throws Exception
+    public List<Customer> findCustomers() throws WarehouseException
     {Connection con = null;
         try
         {
            con = ResourcesManager.getConnection();
            return CustomerDao.getInstance().findAll(con);
-        }catch(Exception e)
+        }catch(SQLException e)
         {
-            throw new Exception("Failed to find customers",e);
+            throw new WarehouseException("Failed to find customers",e);
         }
         finally 
         {

@@ -7,7 +7,9 @@ package com.fink.projectpa.service;
 import com.fink.projectpa.dao.ResourcesManager;
 import com.fink.projectpa.dao.ShipperDao;
 import com.fink.projectpa.data.Shipper;
+import com.fink.projectpa.exception.WarehouseException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -25,7 +27,7 @@ public class ShipperService {
         return instance;
     }
     
-    public void addNewShipper(Shipper shipper) throws Exception
+    public void addNewShipper(Shipper shipper) throws WarehouseException
     {
         Connection con = null;
         try{
@@ -33,24 +35,24 @@ public class ShipperService {
             
             ShipperDao.getInstance().create(con, shipper);
             
-        }catch(Exception e){
-            throw new Exception("Failed to add new shipper",e);
+        }catch(SQLException e){
+            throw new WarehouseException("Failed to add new shipper",e);
         }
         finally{
             ResourcesManager.closeConnection(con);
         }
     }
     
-    public Shipper findShipper(int shipperId) throws Exception
+    public Shipper findShipper(int shipperId) throws WarehouseException
     {
         Connection con = null;
         try
         {
            con = ResourcesManager.getConnection();
            return ShipperDao.getInstance().find(con, shipperId);
-        }catch(Exception e)
+        }catch(SQLException e)
         {
-            throw new Exception("Failed to find shipper with id " + shipperId,e);
+            throw new WarehouseException("Failed to find shipper with id " + shipperId,e);
         }
         finally 
         {
@@ -58,7 +60,7 @@ public class ShipperService {
         }
     }
     
-    public void deleteShipper(int shipperId) throws Exception
+    public void deleteShipper(int shipperId) throws WarehouseException
     {
         Connection con = null;
         try
@@ -68,10 +70,10 @@ public class ShipperService {
             ShipperDao.getInstance().delete(con, shipperId);
             con.commit();
         }
-        catch(Exception e)
+        catch(SQLException e)
         {
             ResourcesManager.rollbackTransactions(con);
-            throw new Exception("Failed to delete shipper with id " + shipperId,e);
+            throw new WarehouseException("Failed to delete shipper with id " + shipperId,e);
             
         }
         finally
@@ -81,7 +83,7 @@ public class ShipperService {
         }    
     }
     
-    public void updateShipper(Shipper shipper) throws Exception
+    public void updateShipper(Shipper shipper) throws WarehouseException
     {
         Connection con = null;
         try
@@ -89,9 +91,9 @@ public class ShipperService {
             con = ResourcesManager.getConnection();
             ShipperDao.getInstance().update(con, shipper);         
         }
-        catch(Exception e)
+        catch(SQLException e)
         {
-            throw new Exception("Failed to update cutomer " + shipper, e);
+            throw new WarehouseException("Failed to update cutomer " + shipper, e);
         }
         finally 
         {
@@ -99,15 +101,15 @@ public class ShipperService {
         }
     }
     
-    public List<Shipper> findShippers() throws Exception
+    public List<Shipper> findShippers() throws WarehouseException
     {Connection con = null;
         try
         {
            con = ResourcesManager.getConnection();
            return ShipperDao.getInstance().findAll(con);
-        }catch(Exception e)
+        }catch(SQLException e)
         {
-            throw new Exception("Failed to find shippers",e);
+            throw new WarehouseException("Failed to find shippers",e);
         }
         finally 
         {

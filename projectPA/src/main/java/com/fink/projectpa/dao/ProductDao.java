@@ -6,6 +6,7 @@ package com.fink.projectpa.dao;
 
 import com.fink.projectpa.data.Product;
 import com.fink.projectpa.data.Supplier;
+import com.fink.projectpa.exception.WarehouseException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +27,7 @@ public class ProductDao {
    {
        return instance;
    }
-   public void create(Connection con, Product product) throws Exception {
+   public void create(Connection con, Product product) throws SQLException,WarehouseException {
         PreparedStatement ps = null;
         ResultSet rs = null;
         int id = -1;
@@ -35,7 +36,7 @@ public class ProductDao {
             ps.setString(1, product.getProductName());
             Supplier supplier = SupplierDao.getInstance().find(con,product.getSupplier().getSupplierId());
             if (supplier == null) {
-                throw new Exception("Supplier " + product.getSupplier() + " doesn't exist in database.");
+                throw new WarehouseException("Supplier " + product.getSupplier() + " doesn't exist in database.");
             }
             ps.setInt(2,product.getSupplier().getSupplierId());
             ps.setString(3, product.getProductCategory());

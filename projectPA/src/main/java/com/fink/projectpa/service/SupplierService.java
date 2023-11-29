@@ -7,7 +7,9 @@ package com.fink.projectpa.service;
 import com.fink.projectpa.dao.ResourcesManager;
 import com.fink.projectpa.dao.SupplierDao;
 import com.fink.projectpa.data.Supplier;
+import com.fink.projectpa.exception.WarehouseException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -25,7 +27,7 @@ public class SupplierService {
         return instance;
     }
     
-    public void addNewSupplier(Supplier supplier) throws Exception
+    public void addNewSupplier(Supplier supplier) throws WarehouseException
     {
         Connection con = null;
         try{
@@ -33,24 +35,24 @@ public class SupplierService {
             
             SupplierDao.getInstance().create(con, supplier);
             
-        }catch(Exception e){
-            throw new Exception("Failed to add new supplier",e);
+        }catch(SQLException e){
+            throw new WarehouseException("Failed to add new supplier",e);
         }
         finally{
             ResourcesManager.closeConnection(con);
         }
     }
     
-    public Supplier findSupplier(int supplierId) throws Exception
+    public Supplier findSupplier(int supplierId) throws WarehouseException
     {
         Connection con = null;
         try
         {
            con = ResourcesManager.getConnection();
            return SupplierDao.getInstance().find(con, supplierId);
-        }catch(Exception e)
+        }catch(SQLException e)
         {
-            throw new Exception("Failed to find supplier with id " + supplierId,e);
+            throw new WarehouseException("Failed to find supplier with id " + supplierId,e);
         }
         finally 
         {
@@ -58,7 +60,7 @@ public class SupplierService {
         }
     }
     
-    public void deleteSupplier(int supplierId) throws Exception
+    public void deleteSupplier(int supplierId) throws WarehouseException
     {
         Connection con = null;
         try
@@ -68,10 +70,10 @@ public class SupplierService {
             SupplierDao.getInstance().delete(con, supplierId);
             con.commit();
         }
-        catch(Exception e)
+        catch(SQLException e)
         {
             ResourcesManager.rollbackTransactions(con);
-            throw new Exception("Failed to delete supplier with id " + supplierId,e);
+            throw new WarehouseException("Failed to delete supplier with id " + supplierId,e);
             
         }
         finally
@@ -81,7 +83,7 @@ public class SupplierService {
         }    
     }
     
-    public void updateSupplier(Supplier supplier) throws Exception
+    public void updateSupplier(Supplier supplier) throws WarehouseException
     {
         Connection con = null;
         try
@@ -89,9 +91,9 @@ public class SupplierService {
             con = ResourcesManager.getConnection();
             SupplierDao.getInstance().update(con, supplier);         
         }
-        catch(Exception e)
+        catch(SQLException e)
         {
-            throw new Exception("Failed to update cutomer " + supplier, e);
+            throw new WarehouseException("Failed to update cutomer " + supplier, e);
         }
         finally 
         {
@@ -99,15 +101,15 @@ public class SupplierService {
         }
     }
     
-    public List<Supplier> findSuppliers() throws Exception
+    public List<Supplier> findSuppliers() throws WarehouseException
     {Connection con = null;
         try
         {
            con = ResourcesManager.getConnection();
            return SupplierDao.getInstance().findAll(con);
-        }catch(Exception e)
+        }catch(SQLException e)
         {
-            throw new Exception("Failed to find suppliers",e);
+            throw new WarehouseException("Failed to find suppliers",e);
         }
         finally 
         {

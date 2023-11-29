@@ -7,6 +7,7 @@ package com.fink.projectpa.dao;
 import com.fink.projectpa.data.Order;
 import com.fink.projectpa.data.OrderDetails;
 import com.fink.projectpa.data.Product;
+import com.fink.projectpa.exception.WarehouseException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,7 +29,7 @@ public class OrderDetailsDao {
    {
        return instance;
    }
-   public void create(Connection con, OrderDetails orderDetails) throws Exception {
+   public void create(Connection con, OrderDetails orderDetails) throws SQLException,WarehouseException {
         PreparedStatement ps = null;
         ResultSet rs = null;
         
@@ -40,17 +41,13 @@ public class OrderDetailsDao {
             }
             ps = con.prepareStatement("INSERT INTO orderDetails(OrderId, ProductId, Quantity) VALUES(?,?,?)");
             
-           // Order order = OrderDao.getInstance().find(con, orderDetails.getOrder().getOrderId());
-            /*if(order == null)
-            {
-                throw new Exception("Order " + orderDetails.getOrder() + " doesn't exist in database.");
-            }*/
+           
             Product product = ProductDao.getInstance().find(con, orderDetails.getProduct().getProductId());
             if(product == null)
             {
-                throw new Exception("Product " + orderDetails.getProduct() + " doesn't exist in database.");
+                throw new WarehouseException("Product " + orderDetails.getProduct() + " doesn't exist in database.");
             }
-            //ps.setInt(1, orderDetails.getOrderDetailsId());
+            
             ps.setInt(1,orderId);
             ps.setInt(2, orderDetails.getProduct().getProductId());
             ps.setInt(3, orderDetails.getQuantity());

@@ -27,6 +27,7 @@ com\fink\projectpa\rest\ProductRest.class
 com\fink\projectpa\dao\OrderDao.class
 com\fink\projectpa\Warehouse.class
 com\fink\projectpa\data\Customer.class
+com\fink\projectpa\exception\WarehouseException.class
 com\fink\projectpa\rest\OrderRest.class
 com\fink\projectpa\data\OrderDetails.class
 com\fink\projectpa\data\Employee.class

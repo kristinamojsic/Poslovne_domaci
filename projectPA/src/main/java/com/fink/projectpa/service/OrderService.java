@@ -9,6 +9,7 @@ import com.fink.projectpa.dao.OrderDetailsDao;
 import com.fink.projectpa.dao.ResourcesManager;
 import com.fink.projectpa.data.Order;
 import com.fink.projectpa.data.OrderDetails;
+import com.fink.projectpa.exception.WarehouseException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -28,7 +29,7 @@ public class OrderService {
         return instance;
     }
     
-    public void addNewOrder(OrderDetails orderDetails) throws Exception
+    public void addNewOrder(OrderDetails orderDetails) throws WarehouseException
     {
         Connection con = null;
         try{
@@ -39,25 +40,25 @@ public class OrderService {
             OrderDetailsDao.getInstance().create(con, orderDetails);
             con.commit();
             
-        }catch(Exception e){
+        }catch(SQLException e){
             ResourcesManager.rollbackTransactions(con);
-            throw new Exception("Failed to add new order",e);
+            throw new WarehouseException("Failed to add new order",e);
         }
         finally{
             ResourcesManager.closeConnection(con);
         }
     }
     
-    public OrderDetails findOrder(int orderId) throws Exception
+    public OrderDetails findOrder(int orderId) throws WarehouseException
     {
         Connection con = null;
         try
         {
            con = ResourcesManager.getConnection();
            return OrderDetailsDao.getInstance().find(con, orderId);
-        }catch(Exception e)
+        }catch(SQLException e)
         {
-            throw new Exception("Failed to find order with id " + orderId,e);
+            throw new WarehouseException("Failed to find order with id " + orderId,e);
         }
         finally 
         {
@@ -65,7 +66,7 @@ public class OrderService {
         }
     }
     
-    public void deleteOrder(int orderId) throws Exception
+    public void deleteOrder(int orderId) throws WarehouseException
     {
         Connection con = null;
         
@@ -80,7 +81,7 @@ public class OrderService {
         catch(SQLException e)
         {
             ResourcesManager.rollbackTransactions(con);
-            throw new Exception("Failed to delete order with id " + orderId,e);
+            throw new WarehouseException("Failed to delete order with id " + orderId,e);
             
             
         }
@@ -91,7 +92,7 @@ public class OrderService {
         }    
     }
     
-    public void updateOrder(OrderDetails orderDetails) throws Exception
+    public void updateOrder(OrderDetails orderDetails) throws WarehouseException
     {
         Connection con = null;
         try
@@ -103,10 +104,10 @@ public class OrderService {
             OrderDetailsDao.getInstance().update(con, orderDetails);  
             con.commit();
         }
-        catch(Exception e)
+        catch(SQLException e)
         {
             ResourcesManager.rollbackTransactions(con);
-            throw new Exception("Failed to update order " + orderDetails, e);
+            throw new WarehouseException("Failed to update order " + orderDetails, e);
         }
         finally 
         {
@@ -114,15 +115,15 @@ public class OrderService {
         }
     }
     
-    public List<OrderDetails> findOrders() throws Exception
+    public List<OrderDetails> findOrders() throws WarehouseException
     {Connection con = null;
         try
         {
            con = ResourcesManager.getConnection();
            return OrderDetailsDao.getInstance().findAll(con);
-        }catch(Exception e)
+        }catch(SQLException e)
         {
-            throw new Exception("Failed to find orders",e);
+            throw new WarehouseException("Failed to find orders",e);
         }
         finally 
         {

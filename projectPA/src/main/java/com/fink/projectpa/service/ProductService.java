@@ -7,7 +7,9 @@ package com.fink.projectpa.service;
 import com.fink.projectpa.dao.ProductDao;
 import com.fink.projectpa.dao.ResourcesManager;
 import com.fink.projectpa.data.Product;
+import com.fink.projectpa.exception.WarehouseException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -25,7 +27,7 @@ public class ProductService {
         return instance;
     }
     
-    public void addNewProduct(Product product) throws Exception
+    public void addNewProduct(Product product) throws WarehouseException
     {
         Connection con = null;
         try{
@@ -33,24 +35,24 @@ public class ProductService {
             
             ProductDao.getInstance().create(con, product);
             
-        }catch(Exception e){
-            throw new Exception("Failed to add new product",e);
+        }catch(SQLException e){
+            throw new WarehouseException("Failed to add new product",e);
         }
         finally{
             ResourcesManager.closeConnection(con);
         }
     }
     
-    public Product findProduct(int productId) throws Exception
+    public Product findProduct(int productId) throws WarehouseException
     {
         Connection con = null;
         try
         {
            con = ResourcesManager.getConnection();
            return ProductDao.getInstance().find(con, productId);
-        }catch(Exception e)
+        }catch(SQLException e)
         {
-            throw new Exception("Failed to find product with id " + productId,e);
+            throw new WarehouseException("Failed to find product with id " + productId,e);
         }
         finally 
         {
@@ -58,7 +60,7 @@ public class ProductService {
         }
     }
     
-    public void deleteProduct(int productId) throws Exception
+    public void deleteProduct(int productId) throws WarehouseException
     {
         Connection con = null;
         try
@@ -68,10 +70,10 @@ public class ProductService {
             ProductDao.getInstance().delete(con, productId); 
             con.commit();
         }
-        catch(Exception e)
+        catch(SQLException e)
         {
             ResourcesManager.rollbackTransactions(con);
-            throw new Exception("Failed to delete product with id " + productId,e);
+            throw new WarehouseException("Failed to delete product with id " + productId,e);
             
         }
         finally
@@ -81,7 +83,7 @@ public class ProductService {
         }    
     }
     
-    public void updateProduct(Product product) throws Exception
+    public void updateProduct(Product product) throws WarehouseException
     {
         Connection con = null;
         try
@@ -89,9 +91,9 @@ public class ProductService {
             con = ResourcesManager.getConnection();
             ProductDao.getInstance().update(con, product);         
         }
-        catch(Exception e)
+        catch(SQLException e)
         {
-            throw new Exception("Failed to update cutomer " + product, e);
+            throw new WarehouseException("Failed to update cutomer " + product, e);
         }
         finally 
         {
@@ -99,15 +101,15 @@ public class ProductService {
         }
     }
     
-    public List<Product> findProducts() throws Exception
+    public List<Product> findProducts() throws WarehouseException
     {Connection con = null;
         try
         {
            con = ResourcesManager.getConnection();
            return ProductDao.getInstance().findAll(con);
-        }catch(Exception e)
+        }catch(SQLException e)
         {
-            throw new Exception("Failed to find products",e);
+            throw new WarehouseException("Failed to find products",e);
         }
         finally 
         {

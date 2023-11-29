@@ -4,6 +4,7 @@
  */
 package com.fink.projectpa.dao;
 
+import com.fink.projectpa.exception.WarehouseException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -37,22 +38,22 @@ public class ResourcesManager {
         }
     }
 
-    public static void closeConnection(Connection con) throws Exception {
+    public static void closeConnection(Connection con) throws WarehouseException {
         if (con != null) {
             try {
                 con.close();
             } catch (SQLException ex) {
-                throw new Exception("Failed to close database connection.", ex);
+                throw new WarehouseException("Failed to close database connection.", ex);
             }
         }
     }
 
-    public static void rollbackTransactions(Connection con) throws Exception {
+    public static void rollbackTransactions(Connection con) throws WarehouseException {
         if (con != null) {
             try {
                 con.rollback();
             } catch (SQLException ex) {
-                throw new Exception("Failed to rollback database transactions.", ex);
+                throw new WarehouseException("Failed to rollback database transactions.", ex);
             }
         }
     }

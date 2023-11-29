@@ -8,6 +8,7 @@ import com.fink.projectpa.data.Customer;
 import com.fink.projectpa.data.Employee;
 import com.fink.projectpa.data.Order;
 import com.fink.projectpa.data.Shipper;
+import com.fink.projectpa.exception.WarehouseException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +30,7 @@ public class OrderDao {
    {
        return instance;
    }
-   public int create(Connection con, Order order) throws Exception {
+   public int create(Connection con, Order order) throws SQLException,WarehouseException {
         PreparedStatement ps = null;
         ResultSet rs = null;
         int id = -1;
@@ -39,17 +40,17 @@ public class OrderDao {
             Customer customer = CustomerDao.getInstance().find(con, order.getCustomer().getCustomerID());
             if(customer == null)
             {
-                throw new Exception("Customer " + order.getCustomer() + " doesn't exist in database.");
+                throw new WarehouseException("Customer " + order.getCustomer() + " doesn't exist in database.");
             }
             Employee employee = EmployeeDao.getInstance().find(con, order.getEmployee().getEmployeeId());
             if(employee == null)
             {
-                throw new Exception("Employee " + order.getEmployee() + " doesn't exist in database.");
+                throw new WarehouseException("Employee " + order.getEmployee() + " doesn't exist in database.");
             }
             Shipper shipper = ShipperDao.getInstance().find(con, order.getShipper().getShipperId());
             if(shipper == null)
             {
-                throw new Exception("Shipper " + order.getShipper().getShipperId() + " doesn't exist in database.");
+                throw new WarehouseException("Shipper " + order.getShipper().getShipperId() + " doesn't exist in database.");
             }
             ps.setString(1, order.getOrderDate());
             ps.setInt(2,order.getCustomer().getCustomerID());
@@ -68,7 +69,7 @@ public class OrderDao {
        
     }
    
-   public void update(Connection con, Order order) throws Exception
+   public void update(Connection con, Order order) throws SQLException,WarehouseException
    {
        //treba proveriti da li postoje
        PreparedStatement ps = null;
@@ -77,17 +78,17 @@ public class OrderDao {
             Customer customer = CustomerDao.getInstance().find(con, order.getCustomer().getCustomerID());
             if(customer == null)
             {
-                throw new Exception("Customer " + order.getCustomer() + " doesn't exist in database.");
+                throw new WarehouseException("Customer " + order.getCustomer() + " doesn't exist in database.");
             }
             Employee employee = EmployeeDao.getInstance().find(con, order.getEmployee().getEmployeeId());
             if(employee == null)
             {
-                throw new Exception("Employee " + order.getEmployee() + " doesn't exist in database.");
+                throw new WarehouseException("Employee " + order.getEmployee() + " doesn't exist in database.");
             }
             Shipper shipper = ShipperDao.getInstance().find(con, order.getShipper().getShipperId());
             if(shipper == null)
             {
-                throw new Exception("Shipper " + order.getShipper().getShipperId() + " doesn't exist in database.");
+                throw new WarehouseException("Shipper " + order.getShipper().getShipperId() + " doesn't exist in database.");
             }
             ps.setString(1, order.getOrderDate());
             ps.setInt(2, order.getCustomer().getCustomerID());
@@ -181,26 +182,7 @@ public class OrderDao {
             ResourcesManager.closeResources(null, ps);
         }
    }
-   /*public List<Integer> findOrdersWithProductId(Connection con, int productId) throws SQLException
-   {
-       PreparedStatement ps = null;
-       ResultSet rs = null;
-       List<Integer> orders = new ArrayList<>();
-       try
-       {
-           ps = con.prepareStatement("SELECT orderId FROM orderDetails WHERE ProductId=?");
-           ps.setInt(1,productId);
-           rs = ps.executeQuery();
-           while(rs.next())
-           {
-               orders.add(rs.getInt(1));
-           }
-       }
-       finally {
-            ResourcesManager.closeResources(rs, ps);
-        }
-       return orders;
-   }*/
+   
    public Order find(Connection con, int orderId) throws SQLException
    {
        PreparedStatement ps = null;
