@@ -130,5 +130,21 @@ public class OrderService {
             ResourcesManager.closeConnection(con);
         }
         
-    }    
+    }   
+    /*public List<Order> findAll() throws WarehouseException
+    {Connection con = null;
+        try
+        {
+           con = ResourcesManager.getConnection();
+           return OrderDao.getInstance().findAll(con);
+        }catch(SQLException e)
+        {
+            throw new WarehouseException("Failed to find orders",e);
+        }
+        finally 
+        {
+            ResourcesManager.closeConnection(con);
+        }
+        
+    }   */
 }

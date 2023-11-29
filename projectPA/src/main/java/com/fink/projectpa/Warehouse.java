@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.fink.projectpa;
+import com.fink.projectpa.dao.OrderDao;
 import com.fink.projectpa.dao.OrderDetailsDao;
 import com.fink.projectpa.dao.ShipperDao;
 import com.fink.projectpa.data.Customer;
@@ -19,6 +20,7 @@ import com.fink.projectpa.service.OrderService;
 import com.fink.projectpa.service.ProductService;
 import com.fink.projectpa.service.ShipperService;
 import com.fink.projectpa.service.SupplierService;
+import java.util.List;
 /**
  *
  * @author PCGarage
@@ -106,8 +108,21 @@ public class Warehouse {
            //System.out.println(AdvancedService.getInstance().shippersProducts(1));
           // System.out.println(AdvancedService.getInstance().MaxOrderPriceCustomers());
           //System.out.println(AdvancedService.getInstance().MostOrdersProducts());
-          
+         /* List <OrderDetails> orders = OrderService.getInstance().findOrders();
+          for(OrderDetails order : orders)
+            {
+                if(order.getOrder()!=null)
+                {
+                    if(order.getOrder().getCustomer().getCustomerID() == 1)
+                {
+                    System.out.println(order.getProduct().getPricePerUnit()*order.getQuantity());    
+                }
+                }
+            }*/
+         
+         System.out.println(AdvancedService.getInstance().CustomersAndOrders());
         }
+        
         catch(Exception e)
         {
             System.out.println(e.getMessage());

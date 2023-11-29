@@ -17,7 +17,9 @@ import com.fink.projectpa.data.OrderDetails;
 import com.fink.projectpa.data.Product;
 import com.fink.projectpa.data.Shipper;
 import com.fink.projectpa.data.Supplier;
+import com.fink.projectpa.exception.WarehouseException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -39,7 +41,7 @@ public class AdvancedService {
     {
         return instance;
     }
-    public String CustomersAndOrders() throws Exception
+    public String CustomersAndOrders() throws WarehouseException
     {
         Connection con = null;
         try
@@ -63,8 +65,8 @@ public class AdvancedService {
             }
             return sb.toString();
         }
-        catch(Exception e){
-            throw new Exception("There are no customers with orders",e);
+        catch(SQLException e){
+            throw new WarehouseException("There are no customers with orders",e);
     }
         finally
         {
@@ -72,7 +74,7 @@ public class AdvancedService {
         }
     }
         
-    public List <Product> suppliersProducts(int supplierId) throws Exception
+    public List <Product> suppliersProducts(int supplierId) throws WarehouseException
     {
         Connection con = null;
         try
@@ -90,8 +92,8 @@ public class AdvancedService {
             }
             return productResult;
         }
-        catch(Exception e){
-            throw new Exception("Supplier doesn't have any product",e);
+        catch(SQLException e){
+            throw new WarehouseException("Supplier doesn't have any product",e);
     }
         finally
         {
@@ -99,7 +101,7 @@ public class AdvancedService {
         }
     }
     
-    public List <Product> shippersProducts(int shipperId) throws Exception
+    public List <Product> shippersProducts(int shipperId) throws WarehouseException
     {
         Connection con = null;
         try
@@ -110,15 +112,19 @@ public class AdvancedService {
             List <OrderDetails> orders = OrderDetailsDao.getInstance().findAll(con);
             for(OrderDetails order : orders)
             {
-                if(order.getOrder().getShipper().getShipperId()==shipperId)
+                if(order.getOrder()!=null)
                 {
-                    result.add(order.getProduct());
+                   if(order.getOrder().getShipper().getShipperId()==shipperId)
+                    {
+                        result.add(order.getProduct());
+                    } 
                 }
+                
             }
             return result;
         }
-        catch(Exception e){
-            throw new Exception("Shipper doesn't have any product",e);
+        catch(SQLException e){
+            throw new WarehouseException("Shipper doesn't have any product",e);
     }
         finally
         {
@@ -126,7 +132,7 @@ public class AdvancedService {
         }
     }
     
-    public double totalPriceOrders() throws Exception
+    public double totalPriceOrders() throws WarehouseException
     {
         Connection con = null;
         try
@@ -141,8 +147,8 @@ public class AdvancedService {
             }
             return sum;
         }
-        catch(Exception e){
-            throw new Exception("There are no orders in database",e);
+        catch(SQLException e){
+            throw new WarehouseException("There are no orders in database",e);
     }
         finally
         {
@@ -150,7 +156,7 @@ public class AdvancedService {
         }
     }
     
-    public double totalPriceForCustomer(int customerId) throws Exception
+    public double totalPriceForCustomer(int customerId) throws WarehouseException
     {
         Connection con = null;
         try
@@ -161,23 +167,27 @@ public class AdvancedService {
             List <OrderDetails> orders = OrderDetailsDao.getInstance().findAll(con);
             for(OrderDetails order : orders)
             {
-                if(order.getOrder().getCustomer().getCustomerID() == customerId)
+                if(order.getOrder()!=null)
+                {
+                  if(order.getOrder().getCustomer().getCustomerID() == customerId)
                 {
                     sum+=order.getProduct().getPricePerUnit()*order.getQuantity();    
+                }  
                 }
+                
                 
             }
             return sum;
         }
-        catch(Exception e){
-            throw new Exception("Given customer doesn't exist in database",e);
+        catch(SQLException e){
+            throw new WarehouseException("Given customer doesn't exist in database",e);
     }
         finally
         {
             ResourcesManager.closeConnection(con);
         }
     }
-    public double totalPriceForShipper(int shipperId) throws Exception
+    public double totalPriceForShipper(int shipperId) throws WarehouseException
     {
         Connection con = null;
         try
@@ -188,16 +198,20 @@ public class AdvancedService {
             List <OrderDetails> orders = OrderDetailsDao.getInstance().findAll(con);
             for(OrderDetails order : orders)
             {
-                if(order.getOrder().getShipper().getShipperId() == shipperId)
+                if(order.getOrder()!=null)
+                {
+                   if(order.getOrder().getShipper().getShipperId() == shipperId)
                 {
                     sum+=order.getProduct().getPricePerUnit()*order.getQuantity();    
+                } 
                 }
+                
                 
             }
             return sum;
         }
-        catch(Exception e){
-            throw new Exception("Given shipper doesn't exist in database",e);
+        catch(SQLException e){
+            throw new WarehouseException("Given shipper doesn't exist in database",e);
     }
         finally
         {
@@ -205,7 +219,7 @@ public class AdvancedService {
         }
     }
     
-    public double totalPriceForSupplier(int supplierId) throws Exception
+    public double totalPriceForSupplier(int supplierId) throws WarehouseException
     {
         Connection con = null;
         try
@@ -224,8 +238,8 @@ public class AdvancedService {
             }
             return sum;
         }
-        catch(Exception e){
-            throw new Exception("Given supplier doesn't exist in database",e);
+        catch(SQLException e){
+            throw new WarehouseException("Given supplier doesn't exist in database",e);
     }
         finally
         {
@@ -271,7 +285,7 @@ public class AdvancedService {
         }
     }
     
-    public String MaxOrderPriceCustomers() throws Exception
+    public String MaxOrderPriceCustomers() throws WarehouseException
     {
         Connection con = null;
         try
@@ -283,7 +297,10 @@ public class AdvancedService {
            List<OrderDetails> orders = OrderDetailsDao.getInstance().findAll(con);
            for(OrderDetails order : orders)
            {
-               mapa.put(totalPriceForCustomer(order.getOrder().getCustomer().getCustomerID()), order.getOrder().getCustomer());
+               if(order.getOrder()!=null){
+                    mapa.put(totalPriceForCustomer(order.getOrder().getCustomer().getCustomerID()), order.getOrder().getCustomer());    
+               }
+               
                
            }
            List<Map.Entry<Double, Customer>> lista = new ArrayList<>(mapa.entrySet());
@@ -303,8 +320,8 @@ public class AdvancedService {
         }
         return result;  
         }
-        catch(Exception e){
-            throw new Exception("There are no orders in database ",e);
+        catch(SQLException e){
+            throw new WarehouseException("There are no orders in database ",e);
         }
         finally
         {
